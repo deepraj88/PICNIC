@@ -80,9 +80,9 @@ int get_param_set(picnic_params_t picnicParams, paramset_t* paramset)
 
     uint32_t pqSecurityLevel;
 
-    switch (picnicParams) {
-    case Picnic_L1_FS:
-    case Picnic_L1_UR:
+//    switch (picnicParams) {
+//    case Picnic_L1_FS:
+//    case Picnic_L1_UR:
         pqSecurityLevel = 64;
         paramset->numMPCRounds = 219;
         paramset->numMPCParties = 3;
@@ -90,62 +90,62 @@ int get_param_set(picnic_params_t picnicParams, paramset_t* paramset)
         paramset->numRounds = 20;
         paramset->digestSizeBytes = 32;
         paramset->andSizeBytes = numBytes(paramset->numSboxes * 3 * paramset->numRounds);
-        break;
-    case Picnic_L3_FS:
-    case Picnic_L3_UR:
-        pqSecurityLevel = 96;
-        paramset->numMPCRounds = 329;
-        paramset->numMPCParties = 3;
-        paramset->numSboxes = 10;
-        paramset->numRounds = 30;
-        paramset->digestSizeBytes = 48;
-        paramset->andSizeBytes = numBytes(paramset->numSboxes * 3 * paramset->numRounds);
-        break;
-    case Picnic_L5_FS:
-    case Picnic_L5_UR:
-        pqSecurityLevel = 128;
-        paramset->numMPCRounds = 438;
-        paramset->numMPCParties = 3;
-        paramset->numSboxes = 10;
-        paramset->numRounds = 38;
-        paramset->digestSizeBytes = 64;
-        paramset->andSizeBytes = numBytes(paramset->numSboxes * 3 * paramset->numRounds);
-        break;
-    case Picnic2_L1_FS:
-        pqSecurityLevel = 64;
-        paramset->numMPCRounds = 343;
-        paramset->numOpenedRounds = 27;
-        paramset->numMPCParties = 64;
-        paramset->numSboxes = 10;
-        paramset->numRounds = 20;
-        paramset->digestSizeBytes = 32;
-        paramset->andSizeBytes = numBytes(paramset->numSboxes * 3 * paramset->numRounds);
-        break;
-    case Picnic2_L3_FS:
-        pqSecurityLevel = 96;
-        paramset->numMPCRounds = 570;
-        paramset->numOpenedRounds = 39;
-        paramset->numMPCParties = 64;
-        paramset->numSboxes = 10;
-        paramset->numRounds = 30;
-        paramset->digestSizeBytes = 48;
-        paramset->andSizeBytes = numBytes(paramset->numSboxes * 3 * paramset->numRounds);
-        break;
-    case Picnic2_L5_FS:
-        pqSecurityLevel = 128;
-        paramset->numMPCRounds = 803;
-        paramset->numOpenedRounds = 50;
-        paramset->numMPCParties = 64;
-        paramset->numSboxes = 10;
-        paramset->numRounds = 38;
-        paramset->digestSizeBytes = 64;
-        paramset->andSizeBytes = numBytes(paramset->numSboxes * 3 * paramset->numRounds);
-        break;
-
-    default:
-        fprintf(stderr, "%s: Unsupported Picnic parameter set (%d). \n", __func__, picnicParams);
-        return -1;
-    }
+//        break;
+//    case Picnic_L3_FS:
+//    case Picnic_L3_UR:
+//        pqSecurityLevel = 96;
+//        paramset->numMPCRounds = 329;
+//        paramset->numMPCParties = 3;
+//        paramset->numSboxes = 10;
+//        paramset->numRounds = 30;
+//        paramset->digestSizeBytes = 48;
+//        paramset->andSizeBytes = numBytes(paramset->numSboxes * 3 * paramset->numRounds);
+//        break;
+//    case Picnic_L5_FS:
+//    case Picnic_L5_UR:
+//        pqSecurityLevel = 128;
+//        paramset->numMPCRounds = 438;
+//        paramset->numMPCParties = 3;
+//        paramset->numSboxes = 10;
+//        paramset->numRounds = 38;
+//        paramset->digestSizeBytes = 64;
+//        paramset->andSizeBytes = numBytes(paramset->numSboxes * 3 * paramset->numRounds);
+//        break;
+//    case Picnic2_L1_FS:
+//        pqSecurityLevel = 64;
+//        paramset->numMPCRounds = 343;
+//        paramset->numOpenedRounds = 27;
+//        paramset->numMPCParties = 64;
+//        paramset->numSboxes = 10;
+//        paramset->numRounds = 20;
+//        paramset->digestSizeBytes = 32;
+//        paramset->andSizeBytes = numBytes(paramset->numSboxes * 3 * paramset->numRounds);
+//        break;
+//    case Picnic2_L3_FS:
+//        pqSecurityLevel = 96;
+//        paramset->numMPCRounds = 570;
+//        paramset->numOpenedRounds = 39;
+//        paramset->numMPCParties = 64;
+//        paramset->numSboxes = 10;
+//        paramset->numRounds = 30;
+//        paramset->digestSizeBytes = 48;
+//        paramset->andSizeBytes = numBytes(paramset->numSboxes * 3 * paramset->numRounds);
+//        break;
+//    case Picnic2_L5_FS:
+//        pqSecurityLevel = 128;
+//        paramset->numMPCRounds = 803;
+//        paramset->numOpenedRounds = 50;
+//        paramset->numMPCParties = 64;
+//        paramset->numSboxes = 10;
+//        paramset->numRounds = 38;
+//        paramset->digestSizeBytes = 64;
+//        paramset->andSizeBytes = numBytes(paramset->numSboxes * 3 * paramset->numRounds);
+//        break;
+//
+//    default:
+//        fprintf(stderr, "%s: Unsupported Picnic parameter set (%d). \n", __func__, picnicParams);
+//        return -1;
+//    }
 
     paramset->stateSizeBytes = numBytes(2 * pqSecurityLevel);
     paramset->seedSizeBytes = numBytes(2 * pqSecurityLevel);
@@ -165,52 +165,72 @@ int get_param_set(picnic_params_t picnicParams, paramset_t* paramset)
 int picnic_keygen(picnic_params_t parameters, picnic_publickey_t* pk,
                   picnic_privatekey_t* sk)
 {
+	int loop;
     if (!is_valid_params(parameters)) {
         printf("Invalid parameter set\n");
         return -1;
     }
 
-    if (pk == NULL) {
-        printf("public key is NULL\n");
-        return -1;
-    }
+//    if (pk == NULL) {
+//        printf("public key is NULL\n");
+//        return -1;
+//    }
+//
+//    if (sk == NULL) {
+//        printf("private key is NULL\n");
+//        return -1;
+//    }
 
-    if (sk == NULL) {
-        printf("private key is NULL\n");
-        return -1;
-    }
-
-    memset(pk, 0x00, sizeof(picnic_publickey_t));
-    memset(sk, 0x00, sizeof(picnic_privatekey_t));
+//    memset(pk, 0x00, sizeof(picnic_publickey_t));
+//    memset(sk, 0x00, sizeof(picnic_privatekey_t));
 
     paramset_t paramset;
     int ret = get_param_set(parameters, &paramset);
     if (ret != EXIT_SUCCESS) {
-        fprintf(stderr, "Failed to initialize parameter set\n");
-        fflush(stderr);
+//        fprintf(stderr, "Failed to initialize parameter set\n");
+//        fflush(stderr);
         return -1;
     }
 
     /* Generate a private key */
     sk->params = parameters;
     if (picnic_random_bytes(sk->data, paramset.stateSizeBytes) != 0) {
-        printf("Failed to generate private key\n");
+//        printf("Failed to generate private key\n");
         return -1;
     }
 
     /* Generate a random plaintext block */
     pk->params = parameters;
     if (picnic_random_bytes(pk->plaintext, paramset.stateSizeBytes) != 0) {
-        printf("Failed to generate private key\n");
+//        printf("Failed to generate private key\n");
         return -1;
     }
 
     /* Compute the ciphertext */
-    LowMCEnc((uint32_t*)pk->plaintext, (uint32_t*)pk->ciphertext,
-             (uint32_t*)sk->data, &paramset);
+    uint32_t temp[PICNIC_MAX_LOWMC_BLOCK_SIZE/4] = {0}, temp2[PICNIC_MAX_LOWMC_BLOCK_SIZE/4] = {0}, temp3[PICNIC_MAX_LOWMC_BLOCK_SIZE/4] = {0};
+    for(loop=0;loop<PICNIC_MAX_LOWMC_BLOCK_SIZE;loop=loop=loop+4) {
+    	temp[loop/4] = pk->ciphertext[loop] + 256*(pk->ciphertext[loop+1] + 256*(pk->ciphertext[loop+2] + 256*pk->ciphertext[loop+3]));
+     	temp2[loop/4] = pk->plaintext[loop] + 256*(pk->plaintext[loop+1] + 256*(pk->plaintext[loop+2] + 256*pk->plaintext[loop+3]));
+     	temp3[loop/4] = sk->data[loop] + 256*(sk->data[loop+1] + 256*(sk->data[loop+2] + 256*sk->data[loop+3]));
+       }
+
+//    LowMCEnc((uint32_t*)pk->plaintext, (uint32_t*)pk->ciphertext,
+//             (uint32_t*)sk->data, &paramset);
+    LowMCEnc(temp2, temp,
+             temp3, &paramset);
+    for(loop=0;loop<PICNIC_MAX_LOWMC_BLOCK_SIZE;loop++) {
+    	pk->ciphertext[loop] = temp[loop/4]%256;
+    	temp[loop/4] = temp[loop/4]/256;
+    }
+
 
     /* Make of copy of the public key in the private key */
-    memcpy(&(sk->pk), pk, sizeof(picnic_publickey_t));
+//    memcpy(&(sk->pk), pk, sizeof(picnic_publickey_t));
+    sk->pk.params = pk->params;
+    for(loop=0;loop<PICNIC_MAX_LOWMC_BLOCK_SIZE;loop++) {
+    	sk->pk.ciphertext[loop] = pk->ciphertext[loop];
+    	sk->pk.plaintext[loop] = pk->plaintext[loop];
+    }
 
     return 0;
 }
@@ -238,63 +258,73 @@ int picnic_sign(picnic_privatekey_t* sk, const uint8_t* message, size_t message_
         return -1;
     }
 
-    if (!is_picnic2(sk->params)) {
-        signature_t* sig = (signature_t*)malloc(sizeof(signature_t));
-        allocateSignature(sig, &paramset);
-        if (sig == NULL) {
-            return -1;
-        }
+//    if (!is_picnic2(sk->params)) {
+        signature_t sig[1];// = (signature_t*)malloc(sizeof(signature_t));
+//        allocateSignature(sig, &paramset);
+//        if (sig == NULL) {
+//            return -1;
+//        }
+//
+        int loop;
+        uint32_t temp[PICNIC_MAX_LOWMC_BLOCK_SIZE/4] = {0}, temp2[PICNIC_MAX_LOWMC_BLOCK_SIZE/4] = {0}, temp3[PICNIC_MAX_LOWMC_BLOCK_SIZE/4] = {0};
+        for(loop=0;loop<PICNIC_MAX_LOWMC_BLOCK_SIZE;loop=loop=loop+4) {
+        	temp[loop/4] = sk->pk.ciphertext[loop] + 256*(sk->pk.ciphertext[loop+1] + 256*(sk->pk.ciphertext[loop+2] + 256*sk->pk.ciphertext[loop+3]));
+         	temp2[loop/4] = sk->pk.plaintext[loop] + 256*(sk->pk.plaintext[loop+1] + 256*(sk->pk.plaintext[loop+2] + 256*sk->pk.plaintext[loop+3]));
+         	temp3[loop/4] = sk->data[loop] + 256*(sk->data[loop+1] + 256*(sk->data[loop+2] + 256*sk->data[loop+3]));
+           }
 
-        ret = sign_picnic1((uint32_t*)sk->data, (uint32_t*)sk->pk.ciphertext, (uint32_t*)sk->pk.plaintext, message,
+//        ret = sign_picnic1((uint32_t*)sk->data, (uint32_t*)sk->pk.ciphertext, (uint32_t*)sk->pk.plaintext, message,
+//                           message_len, sig, &paramset);
+        ret = sign_picnic1(temp3, temp, temp2, message,
                            message_len, sig, &paramset);
         if (ret != EXIT_SUCCESS) {
-            fprintf(stderr, "Failed to create signature\n");
-            fflush(stderr);
-            freeSignature(sig, &paramset);
-            free(sig);
+//            fprintf(stderr, "Failed to create signature\n");
+//            fflush(stderr);
+//            freeSignature(sig, &paramset);
+//            free(sig);
             return -1;
         }
 
         ret = serializeSignature(sig, signature, *signature_len, &paramset);
         if (ret == -1) {
-            fprintf(stderr, "Failed to serialize signature\n");
-            fflush(stderr);
-            freeSignature(sig, &paramset);
-            free(sig);
+//            fprintf(stderr, "Failed to serialize signature\n");
+//            fflush(stderr);
+//            freeSignature(sig, &paramset);
+//            free(sig);
             return -1;
         }
         *signature_len = ret;
-        freeSignature(sig, &paramset);
-        free(sig);
-    }
-    else {
-        signature2_t* sig = (signature2_t*)malloc(sizeof(signature2_t));
-        allocateSignature2(sig, &paramset);
-        if (sig == NULL) {
-            return -1;
-        }
-        ret = sign_picnic2((uint32_t*)sk->data, (uint32_t*)sk->pk.ciphertext, (uint32_t*)sk->pk.plaintext, message,
-                           message_len, sig, &paramset);
-        if (ret != EXIT_SUCCESS) {
-            fprintf(stderr, "Failed to create signature\n");
-            fflush(stderr);
-            freeSignature2(sig, &paramset);
-            free(sig);
-            return -1;
-        }
-        ret = serializeSignature2(sig, signature, *signature_len, &paramset);
-        if (ret == -1) {
-            fprintf(stderr, "Failed to serialize signature\n");
-            fflush(stderr);
-            freeSignature2(sig, &paramset);
-            free(sig);
-            return -1;
-        }
-        *signature_len = ret;
-
-        freeSignature2(sig, &paramset);
-        free(sig);
-    }
+//        freeSignature(sig, &paramset);
+//        free(sig);
+//    }
+//    else {
+//        signature2_t* sig = (signature2_t*)malloc(sizeof(signature2_t));
+//        allocateSignature2(sig, &paramset);
+//        if (sig == NULL) {
+//            return -1;
+//        }
+//        ret = sign_picnic2((uint32_t*)sk->data, (uint32_t*)sk->pk.ciphertext, (uint32_t*)sk->pk.plaintext, message,
+//                           message_len, sig, &paramset);
+//        if (ret != EXIT_SUCCESS) {
+//            fprintf(stderr, "Failed to create signature\n");
+//            fflush(stderr);
+//            freeSignature2(sig, &paramset);
+//            free(sig);
+//            return -1;
+//        }
+//        ret = serializeSignature2(sig, signature, *signature_len, &paramset);
+//        if (ret == -1) {
+//            fprintf(stderr, "Failed to serialize signature\n");
+//            fflush(stderr);
+//            freeSignature2(sig, &paramset);
+//            free(sig);
+//            return -1;
+//        }
+//        *signature_len = ret;
+//
+//        freeSignature2(sig, &paramset);
+//        free(sig);
+//    }
 
 
     return 0;
@@ -359,78 +389,142 @@ int picnic_verify(picnic_publickey_t* pk, const uint8_t* message, size_t message
         return -1;
     }
 
-    if (!is_picnic2(pk->params)) {
-        signature_t* sig = (signature_t*)malloc(sizeof(signature_t));
-        allocateSignature(sig, &paramset);
-        if (sig == NULL) {
-            return -1;
-        }
+//    if (!is_picnic2(pk->params)) {
+        signature_t sig[1];// = (signature_t*)malloc(sizeof(signature_t));
+#ifdef DEBUG
+        allocateSignature(&sig, &paramset);
+//        if (sig == NULL) {
+//            return -1;
+//        }
 
-        ret = deserializeSignature(sig, signature, signature_len, &paramset);
+        ret = deserializeSignature(&sig, signature, signature_len, &paramset);
         if (ret != EXIT_SUCCESS) {
             fprintf(stderr, "Failed to deserialize signature\n");
             fflush(stderr);
-            freeSignature(sig, &paramset);
-            free(sig);
+            freeSignature(&sig, &paramset);
+//            free(sig);
             return -1;
         }
 
-        ret = verify(sig, (uint32_t*)pk->ciphertext,
+        ret = verify(&sig, (uint32_t*)pk->ciphertext,
                      (uint32_t*)pk->plaintext, message, message_len, &paramset);
         if (ret != EXIT_SUCCESS) {
             /* Signature is invalid, or verify function failed */
-            freeSignature(sig, &paramset);
-            free(sig);
+            freeSignature(&sig, &paramset);
+//            free(sig);
             return -1;
         }
 
-        freeSignature(sig, &paramset);
-        free(sig);
-    }
-    else {
-        signature2_t* sig = (signature2_t*)malloc(sizeof(signature2_t));
-        allocateSignature2(sig, &paramset);
-        if (sig == NULL) {
-            return -1;
-        }
+        freeSignature(&sig, &paramset);
+//        free(sig);
+//    }
+//    else {
+//        signature2_t* sig = (signature2_t*)malloc(sizeof(signature2_t));
+//        allocateSignature2(sig, &paramset);
+//        if (sig == NULL) {
+//            return -1;
+//        }
+//
+//        ret = deserializeSignature2(sig, signature, signature_len, &paramset);
+//        if (ret != EXIT_SUCCESS) {
+//            fprintf(stderr, "Failed to deserialize signature\n");
+//            fflush(stderr);
+//            freeSignature2(sig, &paramset);
+//            free(sig);
+//            return -1;
+//        }
+//
+//        ret = verify_picnic2(sig, (uint32_t*)pk->ciphertext,
+//                             (uint32_t*)pk->plaintext, message, message_len, &paramset);
+//        if (ret != EXIT_SUCCESS) {
+//            /* Signature is invalid, or verify function failed */
+//            freeSignature2(sig, &paramset);
+//            free(sig);
+//            return -1;
+//        }
+//
+//        freeSignature2(sig, &paramset);
+//        free(sig);
+//    }
+#else
+//        allocateSignature(sig, &paramset);
+//        if (sig == NULL) {
+//            return -1;
+//        }
 
-        ret = deserializeSignature2(sig, signature, signature_len, &paramset);
+        ret = deserializeSignature(sig, signature, signature_len, &paramset);
         if (ret != EXIT_SUCCESS) {
-            fprintf(stderr, "Failed to deserialize signature\n");
-            fflush(stderr);
-            freeSignature2(sig, &paramset);
-            free(sig);
+//            fprintf(stderr, "Failed to deserialize signature\n");
+//            fflush(stderr);
+//            freeSignature(&sig, &paramset);
+//            free(sig);
             return -1;
         }
-
-        ret = verify_picnic2(sig, (uint32_t*)pk->ciphertext,
-                             (uint32_t*)pk->plaintext, message, message_len, &paramset);
+//
+        int loop;
+        uint32_t temp[PICNIC_MAX_LOWMC_BLOCK_SIZE/4] = {0}, temp2[PICNIC_MAX_LOWMC_BLOCK_SIZE/4] = {0};
+        for(loop=0;loop<PICNIC_MAX_LOWMC_BLOCK_SIZE;loop=loop=loop+4) {
+        	temp[loop/4] = pk->ciphertext[loop] + 256*(pk->ciphertext[loop+1] + 256*(pk->ciphertext[loop+2] + 256*pk->ciphertext[loop+3]));
+        	temp2[loop/4] = pk->plaintext[loop] + 256*(pk->plaintext[loop+1] + 256*(pk->plaintext[loop+2] + 256*pk->plaintext[loop+3]));
+        }
+        ret = verify(sig, temp,
+                     temp2, message, message_len, &paramset);
+//        ret = verify(&sig, (uint32_t*)pk->ciphertext,
+//                     (uint32_t*)pk->plaintext, message, message_len, &paramset);
         if (ret != EXIT_SUCCESS) {
             /* Signature is invalid, or verify function failed */
-            freeSignature2(sig, &paramset);
-            free(sig);
+            freeSignature(sig, &paramset);
+//            free(sig);
             return -1;
         }
-
-        freeSignature2(sig, &paramset);
-        free(sig);
-    }
-
-
+//
+//        freeSignature(&sig, &paramset);
+//        free(sig);
+//    }
+//    else {
+//        signature2_t* sig = (signature2_t*)malloc(sizeof(signature2_t));
+//        allocateSignature2(sig, &paramset);
+//        if (sig == NULL) {
+//            return -1;
+//        }
+//
+//        ret = deserializeSignature2(sig, signature, signature_len, &paramset);
+//        if (ret != EXIT_SUCCESS) {
+//            fprintf(stderr, "Failed to deserialize signature\n");
+//            fflush(stderr);
+//            freeSignature2(sig, &paramset);
+//            free(sig);
+//            return -1;
+//        }
+//
+//        ret = verify_picnic2(sig, (uint32_t*)pk->ciphertext,
+//                             (uint32_t*)pk->plaintext, message, message_len, &paramset);
+//        if (ret != EXIT_SUCCESS) {
+//            /* Signature is invalid, or verify function failed */
+//            freeSignature2(sig, &paramset);
+//            free(sig);
+//            return -1;
+//        }
+//
+//        freeSignature2(sig, &paramset);
+//        free(sig);
+//    }
+#endif
     return 0;
 }
 
 /* Serialize public key */
 int picnic_write_public_key(const picnic_publickey_t* key, uint8_t* buf, size_t buflen)
 {
-    if (key == NULL || buf == NULL) {
-        return -1;
-    }
+//    if (key == NULL || buf == NULL) {
+//        return -1;
+//    }
 
+	int loop;
     paramset_t paramset;
     int ret = get_param_set(key->params, &paramset);
     if (ret != EXIT_SUCCESS) {
-        fprintf(stderr, "Failed to initialize parameter set\n");
+//        fprintf(stderr, "Failed to initialize parameter set\n");
         return -1;
     }
 
@@ -441,17 +535,22 @@ int picnic_write_public_key(const picnic_publickey_t* key, uint8_t* buf, size_t 
 
     buf[0] = (uint8_t)key->params;
 
-    memcpy(buf + 1, key->ciphertext, paramset.stateSizeBytes);
-    memcpy(buf + 1 + paramset.stateSizeBytes, key->plaintext, paramset.stateSizeBytes);
+//    memcpy(buf + 1, key->ciphertext, paramset.stateSizeBytes);
+    for(loop=0;loop<paramset.stateSizeBytes;loop++)
+    	buf[1+loop] = key->ciphertext[loop];
+//    memcpy(buf + 1 + paramset.stateSizeBytes, key->plaintext, paramset.stateSizeBytes);
+    for(loop=0;loop<paramset.stateSizeBytes;loop++)
+    	buf[1+ paramset.stateSizeBytes+loop] = key->plaintext[loop];
 
     return (int)bytesRequired;
 }
 
 int picnic_read_public_key(picnic_publickey_t* key, const uint8_t* buf, size_t buflen)
 {
-    if (key == NULL || buf == NULL) {
-        return -1;
-    }
+	int loop;
+//    if (key == NULL || buf == NULL) {
+//        return -1;
+//    }
 
     if (buflen < 1 || !is_valid_params(buf[0])) {
         return -1;
@@ -471,11 +570,16 @@ int picnic_read_public_key(picnic_publickey_t* key, const uint8_t* buf, size_t b
         return -1;
     }
 
-    memset(key->ciphertext, 0x00, paramset.stateSizeBytes);
-    memcpy(key->ciphertext, buf + 1, paramset.stateSizeBytes);
 
-    memset(key->plaintext, 0x00, paramset.stateSizeBytes);
-    memcpy(key->plaintext, buf + 1 + paramset.stateSizeBytes, paramset.stateSizeBytes);
+//    memset(key->ciphertext, 0x00, paramset.stateSizeBytes);
+//    memcpy(key->ciphertext, buf + 1, paramset.stateSizeBytes);
+    for(loop=0;loop<paramset.stateSizeBytes;loop++)
+    	key->ciphertext[loop] = buf[1+loop];
+
+//    memset(key->plaintext, 0x00, paramset.stateSizeBytes);
+//    memcpy(key->plaintext, buf + 1 + paramset.stateSizeBytes, paramset.stateSizeBytes);
+    for(loop=0;loop<paramset.stateSizeBytes;loop++)
+    	key->plaintext[loop] = buf[1+loop+paramset.stateSizeBytes];
 
     return 0;
 }
@@ -483,10 +587,11 @@ int picnic_read_public_key(picnic_publickey_t* key, const uint8_t* buf, size_t b
 /* Serialize a private key. */
 int picnic_write_private_key(const picnic_privatekey_t* key, uint8_t* buf, size_t buflen)
 {
-    if (key == NULL || buf == NULL) {
-        return -1;
-    }
+//    if (key == NULL || buf == NULL) {
+//        return -1;
+//    }
 
+	int loop;
     paramset_t paramset;
     int ret = get_param_set(key->params, &paramset);
     if (ret != EXIT_SUCCESS) {
@@ -503,9 +608,15 @@ int picnic_write_private_key(const picnic_privatekey_t* key, uint8_t* buf, size_
 
     buf[0] = (uint8_t)key->params;
 
-    memcpy(buf + 1, key->data, n);
-    memcpy(buf + 1 + n, key->pk.ciphertext, n);
-    memcpy(buf + 1 + 2 * n, key->pk.plaintext, n);
+//    memcpy(buf + 1, key->data, n);
+//    memcpy(buf + 1 + n, key->pk.ciphertext, n);
+//    memcpy(buf + 1 + 2 * n, key->pk.plaintext, n);
+    for(loop=0;loop<n;loop++) {
+    	buf[1+loop] = key->data[loop];
+    	buf[1+n+loop] = key->pk.ciphertext[loop];
+    	buf[1+2*n+loop] = key->pk.plaintext[loop];
+
+    }
 
     return (int)bytesRequired;
 }
@@ -513,15 +624,16 @@ int picnic_write_private_key(const picnic_privatekey_t* key, uint8_t* buf, size_
 /* De-serialize a private key. */
 int picnic_read_private_key(picnic_privatekey_t* key, const uint8_t* buf, size_t buflen)
 {
-    if (key == NULL || buf == NULL) {
-        return -1;
-    }
+//    if (key == NULL || buf == NULL) {
+//        return -1;
+//    }
 
+	int loop =0 ;
     if (buflen < 1 || !is_valid_params(buf[0])) {
         return -1;
     }
 
-    memset(key, 0x00, sizeof(picnic_privatekey_t));
+//    memset(key, 0x00, sizeof(picnic_privatekey_t));
 
     key->params = buf[0];
     key->pk.params = buf[0];
@@ -529,7 +641,7 @@ int picnic_read_private_key(picnic_privatekey_t* key, const uint8_t* buf, size_t
     paramset_t paramset;
     int ret = get_param_set(key->params, &paramset);
     if (ret != EXIT_SUCCESS) {
-        fprintf(stderr, "Failed to initialize paramset set\n");
+//        fprintf(stderr, "Failed to initialize paramset set\n");
         return -1;
     }
 
@@ -539,9 +651,15 @@ int picnic_read_private_key(picnic_privatekey_t* key, const uint8_t* buf, size_t
         return -1;
     }
 
-    memcpy(key->data, buf + 1, n);
-    memcpy(key->pk.ciphertext, buf + 1 + n, n);
-    memcpy(key->pk.plaintext, buf + 1 + 2 * n, n);
+//    memcpy(key->data, buf + 1, n);
+//    memcpy(key->pk.ciphertext, buf + 1 + n, n);
+//    memcpy(key->pk.plaintext, buf + 1 + 2 * n, n);
+    for(loop=0;loop<n;loop++) {
+    	key->data[loop] = buf[1+loop];
+    	key->pk.ciphertext[loop] = buf[1+n+loop];
+    	key->pk.plaintext[loop] = buf[1+2*n+loop];
+
+    }
 
     return 0;
 }

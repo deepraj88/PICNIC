@@ -10,7 +10,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "rng.h"
-#include "api.h"
+#include "../api.h"
 
 #define	MAX_MARKER_LEN		50
 
@@ -76,14 +76,14 @@ main()
     for (int i=0; i<48; i++)
         entropy_input[i] = i;
 
-    NIST_randombytes_init(entropy_input, NULL, 256);
-    for (int i=0; i<100; i++) {
+    randombytes_init(entropy_input, NULL, 256);
+    for (int i=0; i<1; i++) {
         fprintf(fp_req, "count = %d\n", i);
-        NIST_randombytes(seed, 48);
+        randombytes(seed, 48);
         fprintBstr(fp_req, "seed = ", seed, 48);
         mlen = 33*(i+1);
         fprintf(fp_req, "mlen = %llu\n", mlen);
-        NIST_randombytes(msg, mlen);
+        randombytes(msg, mlen);
         fprintBstr(fp_req, "msg = ", msg, mlen);
         fprintf(fp_req, "pk =\n");
         fprintf(fp_req, "sk =\n");
@@ -115,7 +115,7 @@ main()
         }
         fprintBstr(fp_rsp, "seed = ", seed, 48);
         
-        NIST_randombytes_init(seed, NULL, 256);
+        randombytes_init(seed, NULL, 256);
         
         if ( FindMarker(fp_req, "mlen = ") )
             fscanf(fp_req, "%llu", &mlen);

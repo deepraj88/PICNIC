@@ -14,6 +14,8 @@
 #ifndef PICNIC_IMPL_H
 #define PICNIC_IMPL_H
 
+//#define DEBUG
+
 #include <stdint.h>
 #include <stddef.h>
 
@@ -41,6 +43,7 @@ typedef struct paramset_t {
     transform_t transform;
 } paramset_t;
 
+#ifdef DEBUG
 typedef struct proof_t {
     uint8_t* seed1;
     uint8_t* seed2;
@@ -50,11 +53,30 @@ typedef struct proof_t {
     uint8_t* view3UnruhG;     // we include the max length, but we will only serialize the bytes we use
 } proof_t;
 
+
 typedef struct signature_t {
     proof_t* proofs;
     uint8_t* challengeBits;     // has length numBytes(numMPCRounds*2)
     uint8_t* salt;              // has length saltSizeBytes
 } signature_t;
+#else
+typedef struct proof_t {
+    uint8_t seed1[16];
+    uint8_t seed2[16];
+    uint32_t inputShare[4];     // Input share of the party which does not derive it from the seed (not included if challenge is 0)
+    uint8_t communicatedBits[75];
+    uint8_t view3Commitment[32];
+    uint8_t view3UnruhG;     // we include the max length, but we will only serialize the bytes we use
+} proof_t;
+
+
+typedef struct signature_t {
+    proof_t proofs[219];
+    uint8_t challengeBits[55];     // has length numBytes(numMPCRounds*2)
+    uint8_t salt[32];              // has length saltSizeBytes
+} signature_t;
+#endif
+
 
 int sign_picnic1(uint32_t* privateKey, uint32_t* pubKey, uint32_t* plaintext, const uint8_t* message, size_t messageByteLength, signature_t* sig, paramset_t* params);
 int verify(signature_t* sig, const uint32_t* pubKey, const uint32_t* plaintext, const uint8_t* message, size_t messageByteLength, paramset_t* params);

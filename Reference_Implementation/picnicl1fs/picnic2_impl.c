@@ -710,6 +710,7 @@ static uint16_t* getMissingLeavesList(uint16_t* challengeC, paramset_t* params)
 int verify_picnic2(signature2_t* sig, const uint32_t* pubKey, const uint32_t* plaintext, const uint8_t* message, size_t messageByteLength,
                    paramset_t* params)
 {
+	size_t t;
     commitments_t* C = allocateCommitments(params, 0);
     commitments_t Ch = { 0 };
     commitments_t Cv = { 0 };
@@ -729,7 +730,7 @@ int verify_picnic2(signature2_t* sig, const uint32_t* pubKey, const uint32_t* pl
     }
 
     /* Populate seeds with values from the signature */
-    for (size_t t = 0; t < params->numMPCRounds; t++) {
+    for (t = 0; t < params->numMPCRounds; t++) {
         if (!contains(sig->challengeC, params->numOpenedRounds, t)) {
             /* Expand iSeed[t] to seeds for each parties, using a seed tree */
             seeds[t] = generateSeeds(params->numMPCParties, getLeaf(iSeedsTree, t), sig->salt, t, params);
@@ -755,7 +756,7 @@ int verify_picnic2(signature2_t* sig, const uint32_t* pubKey, const uint32_t* pl
     /* Commit */
     size_t last = params->numMPCParties - 1;
     uint8_t auxBits[MAX_AUX_BYTES];
-    for (size_t t = 0; t < params->numMPCRounds; t++) {
+    for (t = 0; t < params->numMPCRounds; t++) {
         /* Compute random tapes for all parties.  One party for each repitition
          * challengeC will have a bogus seed; but we won't use that party's
          * random tape. */
@@ -791,14 +792,14 @@ int verify_picnic2(signature2_t* sig, const uint32_t* pubKey, const uint32_t* pl
 
     /* Commit to the commitments */
     allocateCommitments2(&Ch, params, params->numMPCRounds);
-    for (size_t t = 0; t < params->numMPCRounds; t++) {
+    for (t = 0; t < params->numMPCRounds; t++) {
         commit_h(Ch.hashes[t], &C[t], params);
     }
 
     /* Commit to the views */
     allocateCommitments2(&Cv, params, params->numMPCRounds);
     shares_t* mask_shares = allocateShares(params->stateSizeBits);
-    for (size_t t = 0; t < params->numMPCRounds; t++) {
+    for (t = 0; t < params->numMPCRounds; t++) {
         if (contains(sig->challengeC, params->numOpenedRounds, t)) {
             /* 2. When t is in C, we have everything we need to re-compute the view, as an honest signer would.
              * We simulate the MPC with one fewer party; the unopned party's values are all set to zero. */
@@ -865,7 +866,7 @@ Exit:
     freeMsgs(msgs);
     freeTree(treeCv);
     freeTree(iSeedsTree);
-    for (size_t t = 0; t < params->numMPCRounds; t++) {
+    for (t = 0; t < params->numMPCRounds; t++) {
         freeRandomTape(&tapes[t]);
         freeTree(seeds[t]);
     }
@@ -894,6 +895,7 @@ int sign_picnic2(uint32_t* privateKey, uint32_t* pubKey, uint32_t* plaintext, co
                  size_t messageByteLength, signature2_t* sig, paramset_t* params)
 {
     int ret = 0;
+    size_t t, j;
     uint8_t* saltAndRoot = malloc(params->saltSizeBytes + params->seedSizeBytes);
 
     computeSaltAndRootSeed(saltAndRoot, params->saltSizeBytes + params->seedSizeBytes, privateKey, pubKey, plaintext, message, messageByteLength, params);
@@ -904,21 +906,21 @@ int sign_picnic2(uint32_t* privateKey, uint32_t* pubKey, uint32_t* plaintext, co
 
     randomTape_t* tapes = malloc(params->numMPCRounds * sizeof(randomTape_t));
     tree_t** seeds = malloc(params->numMPCRounds * sizeof(tree_t*));
-    for (size_t t = 0; t < params->numMPCRounds; t++) {
+    for (t = 0; t < params->numMPCRounds; t++) {
         seeds[t] = generateSeeds(params->numMPCParties, iSeeds[t], sig->salt, t, params);
         createRandomTapes(&tapes[t], getLeaves(seeds[t]), sig->salt, t, params);
     }
 
     /* Preprocessing; compute aux tape for the N-th player, for each parallel rep */
     uint8_t auxBits[MAX_AUX_BYTES];
-    for (size_t t = 0; t < params->numMPCRounds; t++) {
+    for (t = 0; t < params->numMPCRounds; t++) {
         computeAuxTape(&tapes[t], params);
     }
 
     /* Commit to seeds and aux bits */
     commitments_t* C = allocateCommitments(params, 0);
-    for (size_t t = 0; t < params->numMPCRounds; t++) {
-        for (size_t j = 0; j < params->numMPCParties - 1; j++) {
+    for (t = 0; t < params->numMPCRounds; t++) {
+        for (j = 0; j < params->numMPCParties - 1; j++) {
             commit(C[t].hashes[j], getLeaf(seeds[t], j), NULL, sig->salt, t, j, params);
         }
         size_t last = params->numMPCParties - 1;
@@ -930,7 +932,7 @@ int sign_picnic2(uint32_t* privateKey, uint32_t* pubKey, uint32_t* plaintext, co
     inputs_t inputs = allocateInputs(params);
     msgs_t* msgs = allocateMsgs(params);
     shares_t* mask_shares = allocateShares(params->stateSizeBits);
-    for (size_t t = 0; t < params->numMPCRounds; t++) {
+    for (t = 0; t < params->numMPCRounds; t++) {
         uint32_t* maskedKey = (uint32_t*)inputs[t];
 
         tapesToWords(mask_shares, &tapes[t]);
@@ -950,7 +952,7 @@ int sign_picnic2(uint32_t* privateKey, uint32_t* pubKey, uint32_t* plaintext, co
     allocateCommitments2(&Ch, params, params->numMPCRounds);
     commitments_t Cv;
     allocateCommitments2(&Cv, params, params->numMPCRounds);
-    for (size_t t = 0; t < params->numMPCRounds; t++) {
+    for (t = 0; t < params->numMPCRounds; t++) {
         commit_h(Ch.hashes[t], &C[t], params);
         commit_v(Cv.hashes[t], inputs[t], &msgs[t], params);
     }
@@ -982,7 +984,7 @@ int sign_picnic2(uint32_t* privateKey, uint32_t* pubKey, uint32_t* plaintext, co
 
     /* Assemble the proof */
     proof2_t* proofs = sig->proofs;
-    for (size_t t = 0; t < params->numMPCRounds; t++) {
+    for (t = 0; t < params->numMPCRounds; t++) {
         if (contains(challengeC, params->numOpenedRounds, t)) {
             allocateProof2(&proofs[t], params);
             size_t P_index = indexOf(challengeC, params->numOpenedRounds, t);
@@ -1021,7 +1023,7 @@ int sign_picnic2(uint32_t* privateKey, uint32_t* pubKey, uint32_t* plaintext, co
 
 #endif
 
-    for (size_t t = 0; t < params->numMPCRounds; t++) {
+    for (t = 0; t < params->numMPCRounds; t++) {
         freeRandomTape(&tapes[t]);
         freeTree(seeds[t]);
     }
@@ -1078,6 +1080,7 @@ int deserializeSignature2(signature2_t* sig, const uint8_t* sigBytes, size_t sig
 {
     /* Read the challenge and salt */
     size_t bytesRequired = 4 * params->numOpenedRounds + params->saltSizeBytes;
+    size_t t, i;
 
     if (sigBytesLen < bytesRequired) {
         return EXIT_FAILURE;
@@ -1090,7 +1093,7 @@ int deserializeSignature2(signature2_t* sig, const uint8_t* sigBytes, size_t sig
     memcpy(sig->salt, sigBytes, params->saltSizeBytes);
     sigBytes += params->saltSizeBytes;
 
-    for (size_t i = 0; i < params->numOpenedRounds; i++) {
+    for (i = 0; i < params->numOpenedRounds; i++) {
         sig->challengeC[i] = fromLittleEndian(sig->challengeC[i]);
         sig->challengeP[i] = fromLittleEndian(sig->challengeP[i]);
     }
@@ -1119,7 +1122,7 @@ int deserializeSignature2(signature2_t* sig, const uint8_t* sigBytes, size_t sig
     /* Compute the number of bytes required for the proofs */
     uint16_t hideList[1] = { 0 };
     size_t seedInfoLen = revealSeedsSize(params->numMPCParties, hideList, 1, params);
-    for (size_t t = 0; t < params->numMPCRounds; t++) {
+    for (t = 0; t < params->numMPCRounds; t++) {
         if (contains(sig->challengeC, params->numOpenedRounds, t)) {
             size_t P_t = sig->challengeP[indexOf(sig->challengeC, params->numOpenedRounds, t)];
             if (P_t != (params->numMPCParties - 1)) {
@@ -1147,7 +1150,7 @@ int deserializeSignature2(signature2_t* sig, const uint8_t* sigBytes, size_t sig
     sigBytes += sig->cvInfoLen;
 
     /* Read the proofs */
-    for (size_t t = 0; t < params->numMPCRounds; t++) {
+    for (t = 0; t < params->numMPCRounds; t++) {
         if (contains(sig->challengeC, params->numOpenedRounds, t)) {
             allocateProof2(&sig->proofs[t], params);
             sig->proofs[t].seedInfoLen = seedInfoLen;
@@ -1188,6 +1191,7 @@ int deserializeSignature2(signature2_t* sig, const uint8_t* sigBytes, size_t sig
 int serializeSignature2(const signature2_t* sig, uint8_t* sigBytes, size_t sigBytesLen, paramset_t* params)
 {
     uint8_t* sigBytesBase = sigBytes;
+    size_t t, i;
 
     /* Compute the number of bytes required for the signature */
     size_t bytesRequired = 4 * params->numOpenedRounds + params->saltSizeBytes; /* challenge and salt */
@@ -1195,7 +1199,7 @@ int serializeSignature2(const signature2_t* sig, uint8_t* sigBytes, size_t sigBy
     bytesRequired += sig->iSeedInfoLen;                                         /* Encode only iSeedInfo, the length will be recomputed by deserialize */
     bytesRequired += sig->cvInfoLen;
 
-    for (size_t t = 0; t < params->numMPCRounds; t++) {   /* proofs */
+    for (t = 0; t < params->numMPCRounds; t++) {   /* proofs */
         if (contains(sig->challengeC, params->numOpenedRounds, t)) {
             size_t P_t = sig->challengeP[indexOf(sig->challengeC, params->numOpenedRounds, t)];
             bytesRequired += sig->proofs[t].seedInfoLen;
@@ -1221,7 +1225,7 @@ int serializeSignature2(const signature2_t* sig, uint8_t* sigBytes, size_t sigBy
     memcpy(sigBytes, sig->salt, params->saltSizeBytes);
     sigBytes += params->saltSizeBytes;
 
-    for (size_t i = 0; i < params->numOpenedRounds; i++) {
+    for (i = 0; i < params->numOpenedRounds; i++) {
         challengeC[i] = fromLittleEndian(sig->challengeC[i]);
         challengeP[i] = fromLittleEndian(sig->challengeP[i]);
     }
@@ -1232,7 +1236,7 @@ int serializeSignature2(const signature2_t* sig, uint8_t* sigBytes, size_t sigBy
     sigBytes += sig->cvInfoLen;
 
     /* Write the proofs */
-    for (size_t t = 0; t < params->numMPCRounds; t++) {
+    for (t = 0; t < params->numMPCRounds; t++) {
         if (contains(sig->challengeC, params->numOpenedRounds, t)) {
             memcpy(sigBytes, sig->proofs[t].seedInfo,  sig->proofs[t].seedInfoLen);
             sigBytes += sig->proofs[t].seedInfoLen;

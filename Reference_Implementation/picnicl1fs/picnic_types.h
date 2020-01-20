@@ -23,16 +23,33 @@ typedef struct randomTape_t {
     size_t nTapes;
 } randomTape_t;
 
+typedef struct randomTape_2t {
+    uint8_t tape[3][166];
+    uint32_t pos;
+    size_t nTapes;
+} randomTape_2t;
+
 typedef struct view_t {
     uint32_t* inputShare;
     uint8_t* communicatedBits;
     uint32_t* outputShare;
 } view_t;
 
+typedef struct view_2t {
+    uint32_t inputShare[4];
+    uint8_t communicatedBits[75];
+    uint32_t outputShare[4];
+} view_2t;
+
 typedef struct commitments_t {
     uint8_t** hashes;
     size_t nCommitments;
 } commitments_t;
+
+typedef struct commitments_2t {
+    uint8_t hashes[3][32];
+    size_t nCommitments;
+} commitments_2t;
 
 typedef uint8_t** inputs_t;
 
@@ -50,6 +67,11 @@ typedef struct seeds_t {
     uint8_t** seed;
     uint8_t* iSeed;
 } seeds_t;
+
+typedef struct seeds_2t {
+    uint8_t seed[3][16];
+    uint8_t iSeed[16];
+} seeds_2t;
 
 typedef struct shares_t {
     uint64_t* shares;

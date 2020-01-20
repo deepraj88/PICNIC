@@ -45,11 +45,14 @@ int
 seedexpander(AES_XOF_struct *ctx, unsigned char *x, unsigned long xlen);
 
 void
-NIST_randombytes_init(unsigned char *entropy_input,
+randombytes_init(unsigned char *entropy_input,
                  unsigned char *personalization_string,
                  int security_strength);
 
 int
-NIST_randombytes(unsigned char *x, unsigned long long xlen);
+randombytes(unsigned char *x, unsigned long long xlen);
+
+int
+randombytes_sign(unsigned char *x, unsigned long long xlen);
 
 #endif /* rng_h */

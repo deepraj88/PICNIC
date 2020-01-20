@@ -33,9 +33,9 @@ void freeShares(shares_t* shares)
 /* Allocate/free functions for dynamically sized types */
 void allocateView(view_t* view, paramset_t* params)
 {
-    view->inputShare = malloc(params->stateSizeBytes);
-    view->communicatedBits = malloc(params->andSizeBytes);
-    view->outputShare = malloc(params->stateSizeBytes);
+    view->inputShare = malloc(params->stateSizeBytes); //16
+    view->communicatedBits = malloc(params->andSizeBytes); //75
+    view->outputShare = malloc(params->stateSizeBytes); //16
 }
 
 void freeView(view_t* view)
@@ -47,10 +47,10 @@ void freeView(view_t* view)
 
 void allocateRandomTape(randomTape_t* tape, paramset_t* params)
 {
-    tape->nTapes = params->numMPCParties;
+    tape->nTapes = params->numMPCParties; //3
     tape->tape = malloc(tape->nTapes * sizeof(uint8_t*));
     size_t tapeSizeBytes = 2 * params->andSizeBytes + params->stateSizeBytes;
-    uint8_t* slab = calloc(1, tape->nTapes * tapeSizeBytes);
+    uint8_t* slab = calloc(1, tape->nTapes * tapeSizeBytes); //166
     for (uint8_t i = 0; i < tape->nTapes; i++) {
         tape->tape[i] = slab;
         slab += tapeSizeBytes;
@@ -90,6 +90,7 @@ void freeProof2(proof2_t* proof)
 
 void allocateProof(proof_t* proof, paramset_t* params)
 {
+#ifdef DEBUG
     proof->seed1 = malloc(params->seedSizeBytes);
     proof->seed2 = malloc(params->seedSizeBytes);
     proof->inputShare = malloc(params->stateSizeBytes);
@@ -101,20 +102,24 @@ void allocateProof(proof_t* proof, paramset_t* params)
     else {
         proof->view3UnruhG = NULL;
     }
+#endif
 }
 
 void freeProof(proof_t* proof)
 {
+#ifdef DEBUG
     free(proof->seed1);
     free(proof->seed2);
     free(proof->inputShare);
     free(proof->communicatedBits);
     free(proof->view3Commitment);
     free(proof->view3UnruhG);
+#endif
 }
 
 void allocateSignature(signature_t* sig, paramset_t* params)
 {
+#ifdef DEBUG
     sig->proofs = (proof_t*)malloc(params->numMPCRounds * sizeof(proof_t));
 
     for (size_t i = 0; i < params->numMPCRounds; i++) {
@@ -123,10 +128,12 @@ void allocateSignature(signature_t* sig, paramset_t* params)
 
     sig->challengeBits = (uint8_t*)malloc(numBytes(2 * params->numMPCRounds));
     sig->salt = (uint8_t*)malloc(params->saltSizeBytes);
+#endif
 }
 
 void freeSignature(signature_t* sig, paramset_t* params)
 {
+#ifdef DEBUG
     for (size_t i = 0; i < params->numMPCRounds; i++) {
         freeProof(&(sig->proofs[i]));
     }
@@ -134,6 +141,7 @@ void freeSignature(signature_t* sig, paramset_t* params)
     free(sig->proofs);
     free(sig->challengeBits);
     free(sig->salt);
+#endif
 }
 
 void allocateSignature2(signature2_t* sig, paramset_t* params)
@@ -208,6 +216,7 @@ void freeSeeds(seeds_t* seeds)
 
 commitments_t* allocateCommitments(paramset_t* params, size_t numCommitments)
 {
+#ifdef DEBUG
     commitments_t* commitments = malloc(params->numMPCRounds * sizeof(commitments_t));
 
     commitments->nCommitments = (numCommitments) ? numCommitments : params->numMPCParties;
@@ -224,7 +233,24 @@ commitments_t* allocateCommitments(paramset_t* params, size_t numCommitments)
             slab += params->digestSizeBytes;
         }
     }
+#else
+    commitments_t* commitments = malloc(params->numMPCRounds * sizeof(commitments_t));
 
+    commitments->nCommitments = (numCommitments) ? numCommitments : params->numMPCParties;
+
+    uint8_t* slab = malloc(params->numMPCRounds * (commitments->nCommitments * params->digestSizeBytes +
+                                                   commitments->nCommitments * sizeof(uint8_t*)) );
+
+    for (uint32_t i = 0; i < params->numMPCRounds; i++) {
+        commitments[i].hashes = (uint8_t**)slab;
+        slab += commitments->nCommitments * sizeof(uint8_t*);
+
+        for (uint32_t j = 0; j < commitments->nCommitments; j++) {
+            commitments[i].hashes[j] = slab;
+            slab += params->digestSizeBytes;
+        }
+    }
+#endif
     return commitments;
 }
 

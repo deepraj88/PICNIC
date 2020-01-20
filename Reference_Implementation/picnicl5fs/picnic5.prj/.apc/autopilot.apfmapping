@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<autopilotfilemapping:AutoPilotFileMapping xmlns:autopilotfilemapping="www.autoesl.com/autopilotfilemapping">
+  <source>
+    <originFiles name="KeccakHash.c" path="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/picnicl5fs/sha3/KeccakHash.c"/>
+    <originFiles name="KeccakP-1600-reference.c" path="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/picnicl5fs/sha3/KeccakP-1600-reference.c"/>
+    <originFiles name="KeccakSpongeWidth1600.c" path="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/picnicl5fs/sha3/KeccakSpongeWidth1600.c"/>
+    <originFiles name="api.c" path="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/picnicl5fs/api.c"/>
+    <originFiles name="hash.c" path="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/picnicl5fs/hash.c"/>
+    <originFiles name="lowmc_constants.c" path="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/picnicl5fs/lowmc_constants.c"/>
+    <originFiles name="picnic.c" path="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/picnicl5fs/picnic.c"/>
+    <originFiles name="picnic2_impl.c" path="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/picnicl5fs/picnic2_impl.c"/>
+    <originFiles name="picnic_impl.c" path="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/picnicl5fs/picnic_impl.c"/>
+    <originFiles name="picnic_types.c" path="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/picnicl5fs/picnic_types.c"/>
+    <originFiles name="tree.c" path="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/picnicl5fs/tree.c"/>
+    <originFiles name="rng.c" path="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/picnicl5fs/NIST-KATs/rng.c"/>
+    <originFiles name="aes.c" path="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/picnicl5fs/NIST-KATs/aes.c"/>
+  </source>
+  <testbench>
+    <originFiles name="newtest_sign.c" path="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/picnicl5fs/newtest_sign.c"/>
+  </testbench>
+</autopilotfilemapping:AutoPilotFileMapping>

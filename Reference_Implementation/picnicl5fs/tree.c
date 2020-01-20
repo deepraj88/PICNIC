@@ -45,6 +45,7 @@ int exists(tree_t* tree, size_t i)
 tree_t* createTree(size_t numLeaves, size_t dataSize)
 {
     tree_t* tree = malloc(sizeof(tree_t));
+    int i;
 
     tree->depth = ceil_log2(numLeaves) + 1;
     tree->numNodes = ((1 << (tree->depth)) - 1) - ((1 << (tree->depth - 1)) - numLeaves);  /* Num nodes in complete - number of missing leaves */
@@ -54,7 +55,7 @@ tree_t* createTree(size_t numLeaves, size_t dataSize)
 
     uint8_t* slab = calloc(tree->numNodes, dataSize);
 
-    for (size_t i = 0; i < tree->numNodes; i++) {
+    for (i = 0; i < tree->numNodes; i++) {
         tree->nodes[i] = slab;
         slab += dataSize;
     }
@@ -64,7 +65,7 @@ tree_t* createTree(size_t numLeaves, size_t dataSize)
     /* Depending on the number of leaves, the tree may not be complete */
     tree->exists = calloc(tree->numNodes, 1);
     memset(tree->exists + tree->numNodes - tree->numLeaves, 1, tree->numLeaves);    /* Set leaves */
-    for (int i = tree->numNodes - tree->numLeaves; i > 0; i--) {
+    for (i = tree->numNodes - tree->numLeaves; i > 0; i--) {
         if (exists(tree, 2 * i + 1) || exists(tree, 2 * i + 2) ) {
             tree->exists[i] = 1;
         }
@@ -236,19 +237,20 @@ static size_t* getRevealedNodes(tree_t* tree, uint16_t* hideList, size_t hideLis
 {
     /* Compute paths up from hideList to root, store as sets of nodes */
     size_t pathLen = tree->depth - 1;
+    size_t i,d;
 
     /* pathSets[i][0...hideListSize] stores the nodes in the path at depth i
      * for each of the leaf nodes in hideListSize */
     size_t** pathSets = malloc(pathLen * sizeof(size_t*));
     size_t* slab = malloc(hideListSize * pathLen * sizeof(size_t));
 
-    for (size_t i = 0; i < pathLen; i++) {
+    for (i = 0; i < pathLen; i++) {
         pathSets[i] = slab;
         slab += hideListSize;
     }
 
     /* Compute the paths back to the root */
-    for (size_t i = 0; i < hideListSize; i++) {
+    for (i = 0; i < hideListSize; i++) {
         size_t pos = 0;
         size_t node = hideList[i] + (tree->numNodes - tree->numLeaves); /* input lists leaf indexes, translate to nodes */
         pathSets[pos][i] = node;
@@ -262,8 +264,8 @@ static size_t* getRevealedNodes(tree_t* tree, uint16_t* hideList, size_t hideLis
     /* Determine seeds to reveal */
     size_t* revealed = malloc(tree->numLeaves * sizeof(size_t));
     size_t revealedPos = 0;
-    for (size_t d = 0; d < pathLen; d++) {
-        for (size_t i = 0; i < hideListSize; i++) {
+    for (d = 0; d < pathLen; d++) {
+        for (i = 0; i < hideListSize; i++) {
             if (!hasSibling(tree, pathSets[d][i])) {
                 continue;
             }
@@ -402,17 +404,18 @@ static void computeParentHash(tree_t* tree, size_t child, uint8_t* salt, paramse
 void buildMerkleTree(tree_t* tree, uint8_t** leafData, uint8_t* salt, paramset_t* params)
 {
     size_t firstLeaf = tree->numNodes - tree->numLeaves;
+    size_t i;
 
     /* Copy data to the leaves. The actual data being committed to has already been
      * hashed, according to the spec. */
-    for (size_t i = 0; i < tree->numLeaves; i++) {
+    for (i = 0; i < tree->numLeaves; i++) {
         if (leafData[i] != NULL) {
             memcpy(tree->nodes[firstLeaf + i], leafData[i], tree->dataSize);
             tree->haveNode[firstLeaf + i] = 1;
         }
     }
     /* Starting at the leaves, work up the tree, computing the hashes for intermediate nodes */
-    for (int i = (int)tree->numNodes; i > 0; i--) {
+    for (i = (int)tree->numNodes; i > 0; i--) {
         computeParentHash(tree, i, salt, params);
     }
 }
@@ -424,15 +427,16 @@ static size_t* getRevealedMerkleNodes(tree_t* tree, uint16_t* missingLeaves,
 {
     size_t firstLeaf = tree->numNodes - tree->numLeaves;
     uint8_t* missingNodes = calloc(tree->numNodes, 1);
+    size_t i;
 
     /* Mark leaves that are missing */
-    for (size_t i = 0; i < missingLeavesSize; i++) {
+    for (i = 0; i < missingLeavesSize; i++) {
         missingNodes[firstLeaf + missingLeaves[i]] = 1;
     }
 
     /* For the nonleaf nodes, if both leaves are missing, mark it as missing too */
     int lastNonLeaf = getParent(tree->numNodes - 1);
-    for (int i = lastNonLeaf; i > 0; i--) {
+    for (i = lastNonLeaf; i > 0; i--) {
         if (!exists(tree, i)) {
             continue;
         }
@@ -452,7 +456,7 @@ static size_t* getRevealedMerkleNodes(tree_t* tree, uint16_t* missingLeaves,
      * back to the root to the set to be revealed */
     size_t* revealed = malloc(tree->numLeaves * sizeof(size_t));
     size_t pos = 0;
-    for (size_t i = 0; i < missingLeavesSize; i++) {
+    for (i = 0; i < missingLeavesSize; i++) {
         size_t node = missingLeaves[i] + firstLeaf;  /* input is leaf indexes, translate to nodes */
         do {
             if (!missingNodes[getParent(node)]) {
@@ -550,10 +554,11 @@ int verifyMerkleTree(tree_t* tree, /* uint16_t* missingLeaves, size_t missingLea
                      uint8_t** leafData, uint8_t* salt, paramset_t* params)
 {
     size_t firstLeaf = tree->numNodes - tree->numLeaves;
+    size_t i;
 
     /* Copy the leaf data, where we have it. The actual data being committed to has already been
      * hashed, according to the spec. */
-    for (size_t i = 0; i < tree->numLeaves; i++) {
+    for (i = 0; i < tree->numLeaves; i++) {
         if (leafData[i] != NULL) {
             if (tree->haveNode[firstLeaf + i] == 1) {
                 return -1;  /* A leaf was assigned from the prover for a node we've recomputed */
@@ -568,7 +573,7 @@ int verifyMerkleTree(tree_t* tree, /* uint16_t* missingLeaves, size_t missingLea
 
     /* At this point the tree has some of the leaves, and some intermediate nodes
      * Work up the tree, computing all nodes we don't have that are missing. */
-    for (int i = (int)tree->numNodes; i > 0; i--) {
+    for (i = (int)tree->numNodes; i > 0; i--) {
         computeParentHash(tree, i, salt, params);
     }
 
