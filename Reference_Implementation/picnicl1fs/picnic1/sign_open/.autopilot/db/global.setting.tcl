@@ -41,9 +41,9 @@ set SCTraceFileName "mytrace"
 set SCTraceFileFormat "vcd"
 set SCTraceOption "all"
 set TargetInfo "xc7a200t:fbg676:-2"
-set SourceFiles {sc {} c {../../sha3/KeccakHash.c ../../sha3/KeccakP-1600-reference.c ../../sha3/KeccakSpongeWidth1600.c ../../NIST-KATs/aes.c ../../api.c ../../hash.c ../../lowmc_constants.c ../../picnic.c ../../picnic2_impl.c ../../picnic_impl.c ../../picnic_types.c ../../NIST-KATs/rng.c ../../tree.c}}
+set SourceFiles {sc {} c {../../tree.c ../../NIST-KATs/rng.c ../../picnic_types.c ../../picnic_impl.c ../../picnic2_impl.c ../../picnic.c ../../lowmc_constants.c ../../hash.c ../../api.c ../../NIST-KATs/aes.c ../../sha3/KeccakSpongeWidth1600.c ../../sha3/KeccakP-1600-reference.c ../../sha3/KeccakHash.c}}
 set SourceFlags {sc {} c {{} {} {} {} {} {} {} {} {} {} {} {} {}}}
-set DirectiveFile {/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/picnicl1fs/picnic1/sign_open/sign_open.directive}
+set DirectiveFile {/home/dss545/vivado_hls/vivado_hls/PICNIC/picnic_submission_0330/Reference_Implementation/picnicl1fs/picnic1/sign_open/sign_open.directive}
 set TBFiles {verilog ../../newtest_sign.c bc ../../newtest_sign.c vhdl ../../newtest_sign.c sc ../../newtest_sign.c cas ../../newtest_sign.c c {}}
 set SpecLanguage "C"
 set TVInFiles {bc {} c {} sc {} cas {} vhdl {} verilog {}}
