@@ -30,9 +30,9 @@
 									<listOptionValue builtIn="false" value="/opt/Xilinx2018/Vivado/2018.2/lnx64/tools/systemc/include"/>
 									<listOptionValue builtIn="false" value="/opt/Xilinx2018/Vivado/2018.2/lnx64/tools/auto_cc/include"/>
 									<listOptionValue builtIn="false" value="/opt/Xilinx2018/Vivado/2018.2/include/etc"/>
-									<listOptionValue builtIn="false" value="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/l1fs_check1"/>
 									<listOptionValue builtIn="false" value="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/picnicl1fs"/>
 									<listOptionValue builtIn="false" value="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_0330/Reference_Implementation/picnicl1fs"/>
+									<listOptionValue builtIn="false" value="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/l1fs_check1"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.670219469" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="AESL_TB"/>
@@ -50,9 +50,9 @@
 									<listOptionValue builtIn="false" value="/opt/Xilinx2018/Vivado/2018.2/lnx64/tools/systemc/include"/>
 									<listOptionValue builtIn="false" value="/opt/Xilinx2018/Vivado/2018.2/lnx64/tools/auto_cc/include"/>
 									<listOptionValue builtIn="false" value="/opt/Xilinx2018/Vivado/2018.2/include/etc"/>
-									<listOptionValue builtIn="false" value="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/l1fs_check1"/>
 									<listOptionValue builtIn="false" value="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/picnicl1fs"/>
 									<listOptionValue builtIn="false" value="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_0330/Reference_Implementation/picnicl1fs"/>
+									<listOptionValue builtIn="false" value="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/l1fs_check1"/>
 								</option>
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.1197524836" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="AESL_TB"/>
@@ -93,7 +93,7 @@
 								<listOptionValue builtIn="false" value="/opt/Xilinx2018/Vivado/2018.2/lnx64/tools/systemc/include"/>
 								<listOptionValue builtIn="false" value="/opt/Xilinx2018/Vivado/2018.2/lnx64/tools/auto_cc/include"/>
 								<listOptionValue builtIn="false" value="/opt/Xilinx2018/Vivado/2018.2/include/etc"/>
-								<listOptionValue builtIn="false" value="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/picnicl1fs"/>
+								<listOptionValue builtIn="false" value="/home/dss545/vivado_hls/vivado_hls/PICNIC/picnic_submission_0330/Reference_Implementation/picnicl1fs"/>
 							</option>
 							<option id="gnu.c.compiler.option.misc.other.234105011" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-Wno-unknown-pragmas -c -fmessage-length=0" valueType="string"/>
 							<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.790507804" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
@@ -135,9 +135,9 @@
 									<listOptionValue builtIn="false" value="/opt/Xilinx2018/Vivado/2018.2/lnx64/tools/systemc/include"/>
 									<listOptionValue builtIn="false" value="/opt/Xilinx2018/Vivado/2018.2/lnx64/tools/auto_cc/include"/>
 									<listOptionValue builtIn="false" value="/opt/Xilinx2018/Vivado/2018.2/include/etc"/>
-									<listOptionValue builtIn="false" value="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/l1fs_check1"/>
 									<listOptionValue builtIn="false" value="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/picnicl1fs"/>
 									<listOptionValue builtIn="false" value="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_0330/Reference_Implementation/picnicl1fs"/>
+									<listOptionValue builtIn="false" value="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/l1fs_check1"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1197222537" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
@@ -150,9 +150,9 @@
 									<listOptionValue builtIn="false" value="/opt/Xilinx2018/Vivado/2018.2/lnx64/tools/systemc/include"/>
 									<listOptionValue builtIn="false" value="/opt/Xilinx2018/Vivado/2018.2/lnx64/tools/auto_cc/include"/>
 									<listOptionValue builtIn="false" value="/opt/Xilinx2018/Vivado/2018.2/include/etc"/>
-									<listOptionValue builtIn="false" value="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/l1fs_check1"/>
 									<listOptionValue builtIn="false" value="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/picnicl1fs"/>
 									<listOptionValue builtIn="false" value="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_0330/Reference_Implementation/picnicl1fs"/>
+									<listOptionValue builtIn="false" value="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/l1fs_check1"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1449041831" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
@@ -188,7 +188,7 @@
 								<listOptionValue builtIn="false" value="/opt/Xilinx2018/Vivado/2018.2/lnx64/tools/systemc/include"/>
 								<listOptionValue builtIn="false" value="/opt/Xilinx2018/Vivado/2018.2/lnx64/tools/auto_cc/include"/>
 								<listOptionValue builtIn="false" value="/opt/Xilinx2018/Vivado/2018.2/include/etc"/>
-								<listOptionValue builtIn="false" value="/home/dss545/vivado_hls/Picnic/Picnic-Round2/picnic_submission_final/Reference_Implementation/picnicl1fs"/>
+								<listOptionValue builtIn="false" value="/home/dss545/vivado_hls/vivado_hls/PICNIC/picnic_submission_0330/Reference_Implementation/picnicl1fs"/>
 							</option>
 							<option id="gnu.c.compiler.option.misc.other.1178730635" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-Wno-unknown-pragmas -c -fmessage-length=0" valueType="string"/>
 							<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.704905454" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>

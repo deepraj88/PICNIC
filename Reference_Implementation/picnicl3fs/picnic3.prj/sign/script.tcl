@@ -5,20 +5,20 @@
 ############################################################
 open_project picnic3.prj
 set_top crypto_sign_keypair
-add_files tree.c
-add_files NIST-KATs/rng.c
-add_files picnic_types.c
-add_files picnic_impl.c
-add_files picnic2_impl.c
-add_files picnic.c
-add_files lowmc_constants.c
-add_files hash.c
-add_files api.c
-add_files NIST-KATs/aes.c
-add_files sha3/KeccakSpongeWidth1600.c
-add_files sha3/KeccakP-1600-reference.c
 add_files sha3/KeccakHash.c
-add_files -tb newtest_sign.c -cflags "-Wno-unknown-pragmas"
+add_files sha3/KeccakP-1600-reference.c
+add_files sha3/KeccakSpongeWidth1600.c
+add_files NIST-KATs/aes.c
+add_files api.c
+add_files hash.c
+add_files lowmc_constants.c
+add_files picnic.c
+add_files picnic2_impl.c
+add_files picnic_impl.c
+add_files picnic_types.c
+add_files NIST-KATs/rng.c
+add_files tree.c
+add_files -tb newtest_sign.c -cflags "-Wno-unknown-pragmas -Wno-unknown-pragmas"
 open_solution "sign"
 set_part {xc7a200tfbg676-2}
 create_clock -period 10 -name default
