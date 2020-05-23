@@ -4,7 +4,7 @@
 ## Copyright (C) 1986-2018 Xilinx, Inc. All Rights Reserved.
 ############################################################
 open_project picnic1
-set_top crypto_sign_open
+set_top crypto_sign_keypair
 add_files sha3/KeccakHash.c
 add_files sha3/KeccakP-1600-reference.c
 add_files sha3/KeccakSpongeWidth1600.c

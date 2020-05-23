@@ -1,2 +1,121 @@
-<AutoPilot:ProjectResources xmlns:AutoPilot="com.autoesl.autopilot.ui.directiveView"/>
-
+<?xml version="1.0" encoding="UTF-8"?>
+<AutoPilot:ProjectResources xmlns:AutoPilot="com.autoesl.autopilot.ui.directiveView">
+  <sourceFile name="hash.c">
+    <directive functionName="HashUpdate" label=" " functionLabel=" ">
+      <pragma name="INLINE"/>
+      <pragma name="ALLOCATION">
+        <option name="instances" value="HashUpdate" positionalBoolean="4"/>
+        <option name="limit" value="1"/>
+        <option name="function" value=" " positionalBoolean="type"/>
+      </pragma>
+    </directive>
+    <directive functionName="HashUpdate_2" label=" " functionLabel=" ">
+      <pragma name="INLINE"/>
+      <pragma name="ALLOCATION">
+        <option name="instances" value="HashUpdate_2" positionalBoolean="4"/>
+        <option name="limit" value="1"/>
+        <option name="function" value=" " positionalBoolean="type"/>
+      </pragma>
+    </directive>
+    <directive functionName="HashInit" label=" " functionLabel=" ">
+      <pragma name="ALLOCATION">
+        <option name="instances" value="HashInit" positionalBoolean="4"/>
+        <option name="limit" value="1"/>
+        <option name="function" value=" " positionalBoolean="type"/>
+      </pragma>
+      <pragma name="INLINE"/>
+    </directive>
+    <directive functionName="HashFinal" label=" " functionLabel=" ">
+      <pragma name="ALLOCATION">
+        <option name="instances" value="HashFinal" positionalBoolean="4"/>
+        <option name="limit" value="1"/>
+        <option name="function" value=" " positionalBoolean="type"/>
+      </pragma>
+      <pragma name="INLINE"/>
+    </directive>
+    <directive functionName="HashSqueeze" label=" " functionLabel=" ">
+      <pragma name="ALLOCATION">
+        <option name="instances" value="HashSqueeze" positionalBoolean="4"/>
+        <option name="limit" value="1"/>
+        <option name="function" value=" " positionalBoolean="type"/>
+      </pragma>
+      <pragma name="INLINE"/>
+    </directive>
+    <directive functionName="HashUpdate_2" label="HashUpdate_2_label2" functionLabel=" ">
+      <pragma name="UNROLL">
+        <option name="factor" value="2"/>
+      </pragma>
+      <pragma name="PIPELINE"/>
+    </directive>
+  </sourceFile>
+  <sourceFile name="sha3/KeccakSpongeWidth1600.c">
+    <directive functionName="KeccakWidth1600_Sponge" label=" " functionLabel=" ">
+      <pragma name="ALLOCATION">
+        <option name="instances" value="KeccakWidth1600_Sponge" positionalBoolean="4"/>
+        <option name="limit" value="1"/>
+        <option name="function" value=" " positionalBoolean="type"/>
+      </pragma>
+      <pragma name="INLINE"/>
+    </directive>
+    <directive functionName="KeccakWidth1600_SpongeInitialize" label=" " functionLabel=" ">
+      <pragma name="ALLOCATION">
+        <option name="instances" value="KeccakWidth1600_SpongeInitialize" positionalBoolean="4"/>
+        <option name="limit" value="1"/>
+        <option name="function" value=" " positionalBoolean="type"/>
+      </pragma>
+      <pragma name="INLINE"/>
+    </directive>
+    <directive functionName="KeccakWidth1600_SpongeAbsorb" label=" " functionLabel=" ">
+      <pragma name="ALLOCATION">
+        <option name="instances" value="KeccakWidth1600_SpongeAbsorb" positionalBoolean="4"/>
+        <option name="limit" value="1"/>
+        <option name="function" value=" " positionalBoolean="type"/>
+      </pragma>
+      <pragma name="INLINE"/>
+    </directive>
+    <directive functionName="KeccakWidth1600_SpongeAbsorbLastFewBits" label=" " functionLabel=" ">
+      <pragma name="ALLOCATION">
+        <option name="instances" value="KeccakWidth1600_SpongeAbsorbLastFewBits" positionalBoolean="4"/>
+        <option name="limit" value="1"/>
+        <option name="function" value=" " positionalBoolean="type"/>
+      </pragma>
+      <pragma name="INLINE"/>
+    </directive>
+    <directive functionName="KeccakWidth1600_SpongeSqueeze" label=" " functionLabel=" ">
+      <pragma name="ALLOCATION">
+        <option name="instances" value="KeccakWidth1600_SpongeSqueeze" positionalBoolean="4"/>
+        <option name="limit" value="1"/>
+        <option name="function" value=" " positionalBoolean="type"/>
+      </pragma>
+      <pragma name="INLINE"/>
+    </directive>
+  </sourceFile>
+  <sourceFile name="sha3/KeccakP-1600-reference.c">
+    <directive functionName="KeccakP1600_AddBytes" label="KeccakP1600_AddBytes_label1" functionLabel=" ">
+      <pragma name="UNROLL">
+        <option name="factor" value="2"/>
+      </pragma>
+      <pragma name="PIPELINE"/>
+    </directive>
+  </sourceFile>
+  <sourceFile name="picnic_impl.c">
+    <directive functionName="xor_array" label="xor_array_label4" functionLabel=" ">
+      <pragma name="UNROLL">
+        <option name="factor" value="2"/>
+      </pragma>
+      <pragma name="PIPELINE"/>
+    </directive>
+    <directive functionName="matrix_mul" label="matrix_mul_label5" functionLabel=" ">
+      <pragma name="UNROLL">
+        <option name="factor" value="2"/>
+      </pragma>
+      <pragma name="PIPELINE"/>
+    </directive>
+    <directive functionName="matrix_mul" label="matrix_mul_label7" functionLabel=" ">
+      <pragma name="UNROLL">
+        <option name="factor" value="2"/>
+      </pragma>
+      <pragma name="PIPELINE"/>
+    </directive>
+  </sourceFile>
+</AutoPilot:ProjectResources>
